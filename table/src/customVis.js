@@ -196,11 +196,19 @@ console.log(data, "data api response")
           section: "Style",
         },
 
+        // freeze3: {
+        //  type: "boolean",
+        //  label: "Freeze First 3 Columns",
+        //  default: false,
+        //  order: 13,
+        //   section: "Style",
+        // },
+
         wrapText: {
          type: "boolean",
          label: "Wrap Text",
          default: false,
-         order: 13,
+         order: 14,
           section: "Style",
         },
 

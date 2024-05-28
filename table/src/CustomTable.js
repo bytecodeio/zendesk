@@ -36,7 +36,7 @@ import { TablePagination } from "@mui/material";
 
 
 const Styles = ({ children, config }) => {
-  var { thColor, thFontSize, tableBordered, fixedHeight, unsetTable, hidePag, removeBars, rightPag, index, border, unsetWidth, titleColor,  toolOn, bodyStyle, hideTitle, tableFontSize, columnsToHide, freeze, wrapText } = config;
+  var { thColor, thFontSize, tableBordered, fixedHeight, unsetTable, hidePag, removeBars, rightPag, index, border, unsetWidth, titleColor,  toolOn, bodyStyle, hideTitle, tableFontSize, columnsToHide, freeze, wrapText, freeze3 } = config;
 
   const StyledWrapper = styled.div`
 
@@ -865,7 +865,12 @@ table>:not(caption)>*>* {
 .makeGray td,
 .makeGray tr:nth-child(odd) td,
 .makeGray .td,
-.makeGray{
+.makeGray,
+.makeGray2 td,
+.makeGray2 tr:nth-child(odd) td,
+.makeGray2 .td,
+.makeGray2
+{
   background: #f4f3f3 !important
 }
 
@@ -893,7 +898,8 @@ word-break: break-all !important
 word-break: break-all !important
 }
 
-.makeGray th{
+.makeGray th,
+.makeGray2 th{
   width:160px !important
 }
 
@@ -905,7 +911,10 @@ word-break: break-all !important
 
 function Table({ columns, data, config }) {
 
-  var { tableBordered, fixedHeight, unsetTable, hidePag, rightPag, removeBars, index, border, textTitle, color_title, writeTitle, toolOn, writeTooltip, headerText, yesText, unsetWidth, titleColor, bodyStyle, hideTitle, tableFontSize, columnsToHide, freeze, wrapText } = config;
+
+  // console.log("fuck you bitch")
+
+  var { tableBordered, fixedHeight, unsetTable, hidePag, rightPag, removeBars, index, border, textTitle, color_title, writeTitle, toolOn, writeTooltip, headerText, yesText, unsetWidth, titleColor, bodyStyle, hideTitle, tableFontSize, columnsToHide, freeze, wrapTex, freeze3 } = config;
 
   const defaultColumn = React.useMemo(
      () => ({
@@ -971,6 +980,9 @@ function Table({ columns, data, config }) {
     </Popover>
   );
   const tr_length = (headerGroups[0].headers.length - 2) * 200
+
+
+  const tr_length3 = (headerGroups[0].headers.length - 3) * 200
 
   return (
     <>
@@ -1161,6 +1173,170 @@ function Table({ columns, data, config }) {
               </tr>
             </tbody>
           </Fragment>
+      ) : config.freeze3 ? (
+
+        <Fragment>
+           <thead style={{display: "inline-flex", width: `${tr_length + 1 * 160}px`}}>
+             <tr key={headerGroups[0].id}
+              {...headerGroups[0].getHeaderGroupProps()}
+              className="tr makeGray2"
+              style={{
+               position: "sticky",
+
+               left: 0,
+               zIndex: 1,
+               display: "flex",
+               width: "480px !important",
+
+             }}
+             >
+               {/* <th className="th smallerWidth"/> */}
+               <th key={headerGroups[0].headers[0].id}
+                 {...headerGroups[0].headers[0].getHeaderProps(headerGroups[0].headers[0].getSortByToggleProps())}
+                 className="th makeGray2"
+               >
+
+               {headerGroups[0].headers[0].render("Header")}
+
+
+                 <span>
+                   {/* {column.isSorted ? (column.isSortedDesc ? "↓"  : "↑"  ) : " "}  */ }
+                   {headerGroups[0].headers[0].isSorted ?  "⇅"  : " "}
+                 </span>
+                 {/* Use column.getResizerProps to hook up the events correctly */}
+                 <div
+                   {...headerGroups[0].headers[0].getResizerProps()}
+                   className={`resizer ${headerGroups[0].headers[0].isResizing ? "isResizing" : ""
+                     }`}
+                 />
+               </th>
+               <th key={headerGroups[0].headers[1].id}
+                 {...headerGroups[0].headers[1].getHeaderProps(headerGroups[0].headers[1].getSortByToggleProps())}
+                 className="th makeGray2"
+               >
+
+               {headerGroups[0].headers[1].render("Header")}
+
+
+                 <span>
+                   {/* {column.isSorted ? (column.isSortedDesc ? "↓"  : "↑"  ) : " "}  */ }
+                   {headerGroups[0].headers[1].isSorted ?  "⇅"  : " "}
+                 </span>
+                 {/* Use column.getResizerProps to hook up the events correctly */}
+                 <div
+                   {...headerGroups[0].headers[1].getResizerProps()}
+                   className={`resizer ${headerGroups[0].headers[1].isResizing ? "isResizing" : ""
+                     }`}
+                 />
+               </th>
+             </tr>
+             {headerGroups.map((headerGroup, index) => (
+             <tr
+              key={headerGroup.id}
+              {...headerGroup.getHeaderGroupProps()} className={`${(config.tableBordered) ? "hidden" : ""} tr`}
+              style={{ width: `${tr_length3}px`, display: "flex"}}>
+                 {headerGroup.headers.map((column, i) => {
+                   if(i != 0 && i != 1) {
+                     return(
+                       <th
+                         key={column.id}
+                           {...column.getHeaderProps(column.getSortByToggleProps())}
+                           className="th"
+                         >
+                         {column.render("Header")}
+                         <span>
+                           {/* {column.isSorted ? (column.isSortedDesc ? "↓"  : "↑"  ) : " "}  */ }
+                           {column.isSorted ?  "⇅"  : " "}
+                         </span>
+                         {/* Use column.getResizerProps to hook up the events correctly */}
+                         <div
+                           {...column.getResizerProps()}
+                           className={`resizer ${column.isResizing ? "isResizing" : ""
+                             }`}
+                         />
+                       </th>
+                     )
+                   }
+             })}
+             </tr>
+             ))}
+           </thead>
+
+
+
+           <tbody {...getTableBodyProps()} style={{display: 'inline-flex'}} className="fixHeight">
+             <tr
+               style={{
+                 position: "sticky",
+                 left: 0,
+                 zIndex: 1,
+
+               }}
+
+             >
+             {page.map((row, i) => {
+               prepareRow(row);
+               return (
+                 <tr
+                 key={row.id}
+                 {...row.getRowProps()}
+                 className="tr makeGray2"
+                 style={{
+                   display: "flex",
+                   width: "480px",
+
+                 }}
+                 >
+
+                   {row.cells.map((cell, index) => {
+                     if(index == 0 || index == 1) {
+                     return (
+                       <td
+
+                       style={{fontFamily: config.bodyStyle ? config.bodyStyle : "'Roboto'"}}
+                       key={cell.id}
+                         {...cell.getCellProps()} className="td">
+                         {cell.render("Cell")}
+                       </td>
+
+
+                     );
+                   }
+                   })}
+                 </tr>
+                 );
+               })}
+             </tr>
+
+             <tr>
+             {page.map((row, i) => {
+               prepareRow(row);
+               return (
+                 <tr
+                 key={row.id}
+                 {...row.getRowProps()} className="tr" style={{ width: `${tr_length3}px`, display: "flex" }}>
+
+                   {row.cells.map((cell, index) => {
+                     if(index != 0 && index != 1) {
+                     return (
+                       <td
+
+                       style={{fontFamily: config.bodyStyle ? config.bodyStyle : "'Roboto'"}}
+                       key={cell.id}
+                         {...cell.getCellProps()} className="td">
+                         {cell.render("Cell")}
+                       </td>
+                     );
+                   }
+                   })}
+                 </tr>
+                 );
+               })}
+             </tr>
+           </tbody>
+         </Fragment>
+
+
 
         ) : config.index  ? (
           <Fragment>
