@@ -1561,28 +1561,7 @@ const createLabel = (label) => {
 
 export const CustomTable = ({ data, config, queryResponse, details, done }) => {
 
-//   // get dimensions and measures
-//   const { dimension_like, measure_like, pivots } = queryResponse.fields;
-//   const fields = {
-//     dimensions: dimension_like.map((d) => d.name),
-//     dimensionsLabel: dimension_like.map((d) => d.label_short),
-//     measures: measure_like.map((m) => m.name),
-//     measuresLabel: measure_like.map((m) => m.label_short),
-//     pivots: pivots?.map((p) => p.name),
-//   };
-//
-//   let mes = fields.dimensions.map(function(val, i){ return val });
-//
-//
-// var element;
-//   for (let index = 0; index < mes.length; ++index) {
-//       var element = mes[index];
-//       console.log(element);
-//   }
-//
-// const dimensionName = fields.dimensions[0];
-// const dimensionName1 = fields.dimensions[1];
-// const measureName = fields.measures[0];
+
 
 
   const [page, setPage] = useState(2);
@@ -1593,11 +1572,8 @@ export const CustomTable = ({ data, config, queryResponse, details, done }) => {
   for (const [key, value] of Object.entries(firstData)) {
 
 
-    if (config['columnsToHide'] !== "") {
+    if (config['columnsToHide'].split(",").includes(key.split(".")[1])){
 
-     console.log(config['columnsToHide'], "columnsToHide")
-
-     config['columnsToHide'].split(",").includes(key.split(".")[1])
       cols_to_hide.push(key);
     }
 
