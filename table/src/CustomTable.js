@@ -36,7 +36,7 @@ import { TablePagination } from "@mui/material";
 
 
 const Styles = ({ children, config }) => {
-  var { thColor, thFontSize, tableBordered, fixedHeight, unsetTable, hidePag, removeBars, rightPag, index, border, unsetWidth, titleColor,  toolOn, bodyStyle, hideTitle, tableFontSize, columnsToHide, freeze, wrapText, freeze3 } = config;
+  var { thColor, thFontSize, tableBordered, fixedHeight, unsetTable, hidePag, removeBars, rightPag, index, border, unsetWidth, titleColor,  toolOn, bodyStyle, hideTitle, tableFontSize, columnsToHide, freeze, wrapText, freeze3, short } = config;
 
   const StyledWrapper = styled.div`
 
@@ -612,7 +612,7 @@ width: 99%;
           font-weight:300;
           height: 75px;
           width: 200px !important;
-          font-size: ${tableFontSize} !important;
+          font-size: 12px !important ;
      }
 
 
@@ -778,7 +778,7 @@ max-width:120px !important;
 
 
 .aroundIt{
-  box-shadow: 0px 0px 19px -1px rgba(175,175,175,.67);
+
 
   height:436px
 
@@ -899,8 +899,24 @@ word-break: break-all !important
 }
 
 .makeGray th,
-.makeGray2 th{
+.makeGray2 th,
+.makeGray2 .td{
   width:160px !important
+}
+
+
+.short th,
+.short .th,
+.short td,
+.short .td{
+  width:100px !important;
+  word-break: break-all !important
+}
+
+
+.short .fixedHeight {
+
+    overflow-x: hidden;
 }
 
 
@@ -914,7 +930,7 @@ function Table({ columns, data, config }) {
 
   // console.log("fuck you bitch")
 
-  var { tableBordered, fixedHeight, unsetTable, hidePag, rightPag, removeBars, index, border, textTitle, color_title, writeTitle, toolOn, writeTooltip, headerText, yesText, unsetWidth, titleColor, bodyStyle, hideTitle, tableFontSize, columnsToHide, freeze, wrapTex, freeze3 } = config;
+  var { tableBordered, fixedHeight, unsetTable, hidePag, rightPag, removeBars, index, border, textTitle, color_title, writeTitle, toolOn, writeTooltip, headerText, yesText, unsetWidth, titleColor, bodyStyle, hideTitle, tableFontSize, columnsToHide, freeze, wrapTex, freeze3, short } = config;
 
   const defaultColumn = React.useMemo(
      () => ({
@@ -982,7 +998,11 @@ function Table({ columns, data, config }) {
   const tr_length = (headerGroups[0].headers.length - 2) * 200
 
 
-  const tr_length3 = (headerGroups[0].headers.length - 3) * 200
+  const tr_length3 = (headerGroups[0].headers.length - 1) * 200
+
+
+
+  console.log(tr_length, tr_length3)
 
   return (
     <>
@@ -1004,7 +1024,7 @@ function Table({ columns, data, config }) {
         </OverlayTrigger>
       </div>
 
-      <div>
+      <div className={`${config.short ? "short" : ""}`}>
         <div className={`${config.unsetTable  ? "unsetTable" : ""}`}>
         <div className={`${config.fixedHeight  ? "fixedHeight" : ""}`}>
 
@@ -1175,8 +1195,9 @@ function Table({ columns, data, config }) {
           </Fragment>
       ) : config.freeze3 ? (
 
+
         <Fragment>
-           <thead style={{display: "inline-flex", width: `${tr_length + 1 * 160}px`}}>
+           <thead style={{display: "inline-flex", width: `${tr_length + 2 * 160}px`}}>
              <tr key={headerGroups[0].id}
               {...headerGroups[0].getHeaderGroupProps()}
               className="tr makeGray2"
@@ -1229,14 +1250,37 @@ function Table({ columns, data, config }) {
                      }`}
                  />
                </th>
+
+
+
+               <th key={headerGroups[0].headers[2].id}
+                 {...headerGroups[0].headers[2].getHeaderProps(headerGroups[0].headers[2].getSortByToggleProps())}
+                 className="th makeGray2"
+               >
+
+               {headerGroups[0].headers[2].render("Header")}
+
+
+                 <span>
+                   {/* {column.isSorted ? (column.isSortedDesc ? "↓"  : "↑"  ) : " "}  */ }
+                   {headerGroups[0].headers[2].isSorted ?  "⇅"  : " "}
+                 </span>
+                 {/* Use column.getResizerProps to hook up the events correctly */}
+                 <div
+                   {...headerGroups[0].headers[2].getResizerProps()}
+                   className={`resizer ${headerGroups[0].headers[2].isResizing ? "isResizing" : ""
+                     }`}
+                 />
+               </th>
+
              </tr>
              {headerGroups.map((headerGroup, index) => (
              <tr
               key={headerGroup.id}
               {...headerGroup.getHeaderGroupProps()} className={`${(config.tableBordered) ? "hidden" : ""} tr`}
-              style={{ width: `${tr_length3}px`, display: "flex"}}>
+              style={{ width: `${tr_length}px`, display: "flex"}}>
                  {headerGroup.headers.map((column, i) => {
-                   if(i != 0 && i != 1) {
+                   if(i != 0 && i != 1  && i != 2) {
                      return(
                        <th
                          key={column.id}
@@ -1270,7 +1314,7 @@ function Table({ columns, data, config }) {
                  position: "sticky",
                  left: 0,
                  zIndex: 1,
-
+                 width:"480px !important"
                }}
 
              >
@@ -1283,13 +1327,13 @@ function Table({ columns, data, config }) {
                  className="tr makeGray2"
                  style={{
                    display: "flex",
-                   width: "480px",
+                   width:"480px !important"
 
                  }}
                  >
 
                    {row.cells.map((cell, index) => {
-                     if(index == 0 || index == 1) {
+                     if(index == 0 || index == 1 || index == 2) {
                      return (
                        <td
 
@@ -1314,10 +1358,10 @@ function Table({ columns, data, config }) {
                return (
                  <tr
                  key={row.id}
-                 {...row.getRowProps()} className="tr" style={{ width: `${tr_length3}px`, display: "flex" }}>
+                 {...row.getRowProps()} className="tr" style={{ width: `${tr_length}px`, display: "flex" }}>
 
                    {row.cells.map((cell, index) => {
-                     if(index != 0 && index != 1) {
+                     if(index != 0 && index != 1 && index != 2) {
                      return (
                        <td
 
@@ -1548,6 +1592,9 @@ const measureName = fields.measures[0];
 
   for (const [key, value] of Object.entries(firstData)) {
     console.log(key, value)
+
+    console.log(config['columnsToHide'])
+
     if (config['columnsToHide'].split(",").includes(key.split(".")[1])) {
       cols_to_hide.push(key);
     }
@@ -1557,7 +1604,7 @@ const measureName = fields.measures[0];
     delete firstData[col];
   });
 
-  const data2 = useEffect(() => data, []);
+  const data2 = useMemo(() => data, []);
 
 
 

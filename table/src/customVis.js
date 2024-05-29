@@ -188,27 +188,36 @@ console.log(data, "data api response")
            order: 32,
         },
 
+
+        short: {
+         type: "boolean",
+         label: "Make Cells Short",
+         default: false,
+         order: 13,
+          section: "Style",
+        },
+
         freeze: {
          type: "boolean",
          label: "Freeze First 2 Columns",
          default: false,
-         order: 12,
+         order: 14,
           section: "Style",
         },
 
-        // freeze3: {
-        //  type: "boolean",
-        //  label: "Freeze First 3 Columns",
-        //  default: false,
-        //  order: 13,
-        //   section: "Style",
-        // },
+        freeze3: {
+         type: "boolean",
+         label: "Freeze First 3 Columns",
+         default: false,
+         order: 15,
+          section: "Style",
+        },
 
         wrapText: {
          type: "boolean",
          label: "Wrap Text",
          default: false,
-         order: 14,
+         order: 16,
           section: "Style",
         },
 
