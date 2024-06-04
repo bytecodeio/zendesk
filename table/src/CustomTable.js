@@ -909,14 +909,25 @@ word-break: break-all !important
 .short .th,
 .short td,
 .short .td{
-  width:100px !important;
-  word-break: break-all !important
+
+
+  width:${short ? `${short} !important` : "200px !important"};
+  word-break: unset !important;
+  height: auto !important;
+ min-height: 90px !important;
+
 }
 
 
-.short .fixedHeight {
+.wrapText .short th,
+.wrapText .short .th,
+.wrapText .short td,
+.wrapText .short .td
+{
 
-    overflow-x: hidden;
+  word-break: break-all !important;
+
+
 }
 
 
@@ -927,8 +938,6 @@ word-break: break-all !important
 
 function Table({ columns, data, config }) {
 
-
-  // console.log("fuck you bitch")
 
   var { tableBordered, fixedHeight, unsetTable, hidePag, rightPag, removeBars, index, border, textTitle, color_title, writeTitle, toolOn, writeTooltip, headerText, yesText, unsetWidth, titleColor, bodyStyle, hideTitle, tableFontSize, columnsToHide, freeze, wrapTex, freeze3, short } = config;
 

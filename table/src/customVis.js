@@ -190,12 +190,17 @@ console.log(data, "data api response")
 
 
         short: {
-         type: "boolean",
-         label: "Make Cells Short",
-         default: false,
-         order: 13,
+
+        type: "string",
+         label: "Choose Cell Size",
+          default: "200px",
+          display: "text",
+          placeholder: "200px",
+          order: 13,
           section: "Style",
         },
+
+
 
         freeze: {
          type: "boolean",
