@@ -36,7 +36,7 @@ import { TablePagination } from "@mui/material";
 
 
 const Styles = ({ children, config }) => {
-  var { thColor, thFontSize, tableBordered, fixedHeight, unsetTable, hidePag, removeBars, rightPag, index, border, unsetWidth, titleColor,  toolOn, bodyStyle, hideTitle, tableFontSize, columnsToHide, freeze, wrapText, freeze3, short } = config;
+  var { thColor, thFontSize, tableBordered, fixedHeight, unsetTable, hidePag, removeBars, rightPag, index, border, unsetWidth, titleColor,  toolOn, bodyStyle, hideTitle, tableFontSize, columnsToHide, freeze, wrapText, freeze3, short, freeze150, freeze3150 } = config;
 
   const StyledWrapper = styled.div`
 
@@ -440,16 +440,13 @@ const Styles = ({ children, config }) => {
       align-items: center;
  }
 
-
 tr:nth-child(odd) td{
   background: #FCFBFA !important
 }
 
   .fixedHeight {
-
       overflow-y: auto;
       overflow-x: auto;
-
 
   }
  }
@@ -486,11 +483,7 @@ tr:nth-child(odd) td{
   .unsetTable td,
   .unsetTable tr,
     .unsetTable th {
-
-
     width: 100% !important;
-
-
  }
 
 
@@ -519,13 +512,6 @@ tr:nth-child(odd) td{
       height: 0px;
  }
 
- .unsetTable .fixedHeight {
-
-
- }
-
-
-
 .clear{
   background:transparent  !important;
 }
@@ -535,10 +521,7 @@ tr:nth-child(odd) td{
     border-style: solid;
     border-width: 0;
     width: 100% !important;
-
-
 }
-
 
 .hidePag{
   display:none
@@ -572,8 +555,6 @@ justify-content: flex-end;
   justify-content:flex-end !important
 }
 
-
-
 .fixAcross{
 position: fixed;
 width: 99%;
@@ -600,30 +581,26 @@ width: 99%;
       .td {
 
           text-align: left;
-
           min-height: unset !important;
           height:auto !important
      }
       .th, .td {
           margin: 0;
           padding: .6rem;
-
           position: relative;
           font-weight:300;
           height: 75px;
-          width: 200px !important;
+          width:${freeze150 || freeze3150  ? "150px !important" : "200px !important"};
           font-size: 12px !important ;
      }
 
 
      .th{
-
-
 height: auto;
 display: flex !important;
 align-items: center;
 font-weight: 400;
-width: 200px !important;
+  width:${freeze150  || freeze3150 ? "150px !important" : "200px !important"};
      }
 
 
@@ -710,8 +687,8 @@ width: 200px !important;
    justify-content:center;
    align-items:center;
    height: 1em !important;
-    width: 1em !important;
-      margin-left:.25rem
+   width: 1em !important;
+  margin-left:.25rem
  }
 
  .pagination span{
@@ -739,7 +716,7 @@ width: 200px !important;
    background:none !important;
    border:none;
    padding: 12px;
-margin-top: 3px;
+   margin-top: 3px;
  }
 
 .bold{
@@ -749,7 +726,6 @@ margin-top: 3px;
 .hidden{
   display:none !important
 }
-
 
 .padding-0{
   padding: 0;
@@ -767,7 +743,6 @@ margin-top: 3px;
 
 }
 
-
 .fixedTD{
 max-width:120px !important;
 }
@@ -776,13 +751,8 @@ max-width:120px !important;
  max-width:120px !important;
 }
 
-
 .aroundIt{
-
-
   height:436px
-
-
 }
 
 .removeBorder #height{
@@ -813,7 +783,7 @@ thead{
 #height{
 
   border: 1px solid black;
-      margin: 2em auto 0 auto;
+  margin: 2em auto 0 auto;
 }
 h5{
   color:white;
@@ -828,8 +798,6 @@ a{
   color:black;
 
 }
-
-
     .arrow{
      display:none !important
     }
@@ -874,9 +842,6 @@ table>:not(caption)>*>* {
   background: #f4f3f3 !important
 }
 
-
-
-
 .unsetTable td,
 .unsetTable .td,
 .unsetTable .th,
@@ -900,8 +865,10 @@ word-break: break-all !important
 
 .makeGray th,
 .makeGray2 th,
-.makeGray2 .td{
-  width:160px !important
+.makeGray2 .td,
+{
+
+  width:${freeze150 || freeze3150 ? "150px !important" : "160px !important"}
 }
 
 
@@ -910,24 +877,19 @@ word-break: break-all !important
 .short td,
 .short .td{
 
-
   width:${short ? `${short} !important` : "200px !important"};
   word-break: unset !important;
   height: auto !important;
- min-height: 90px !important;
+ min-height: 85px !important;
 
 }
-
 
 .wrapText .short th,
 .wrapText .short .th,
 .wrapText .short td,
 .wrapText .short .td
 {
-
   word-break: break-all !important;
-
-
 }
 
 
@@ -939,12 +901,12 @@ word-break: break-all !important
 function Table({ columns, data, config }) {
 
 
-  var { tableBordered, fixedHeight, unsetTable, hidePag, rightPag, removeBars, index, border, textTitle, color_title, writeTitle, toolOn, writeTooltip, headerText, yesText, unsetWidth, titleColor, bodyStyle, hideTitle, tableFontSize, columnsToHide, freeze, wrapTex, freeze3, short } = config;
+  var { tableBordered, fixedHeight, unsetTable, hidePag, rightPag, removeBars, index, border, textTitle, color_title, writeTitle, toolOn, writeTooltip, headerText, yesText, unsetWidth, titleColor, bodyStyle, hideTitle, tableFontSize, columnsToHide, freeze, wrapTex, freeze3, short, freeze150, freeze3150 } = config;
 
   const defaultColumn = React.useMemo(
      () => ({
        minWidth: 40,
-       width: 200,
+       width: config.freeze150 || config.freeze3150  ? 150 : 200,
        maxWidth: 400,
      }),
      []
@@ -996,7 +958,6 @@ function Table({ columns, data, config }) {
 
   const popoverHoverFocus = (
     <Popover
-
     className={config.toolOn ? "" : "hidden"}
     id="popover"
     style={{backgroundColor:'black', color:'white', padding: '1em 1.25em'}}
@@ -1006,12 +967,6 @@ function Table({ columns, data, config }) {
   );
   const tr_length = (headerGroups[0].headers.length - 2) * 200
 
-
-  const tr_length3 = (headerGroups[0].headers.length - 1) * 200
-
-
-
-  console.log(tr_length, tr_length3)
 
   return (
     <>
@@ -1042,19 +997,18 @@ function Table({ columns, data, config }) {
         <table className="table" {...getTableProps()}>
 
         {
-           config.freeze  ? (
+         config.freeze  ? (
          <Fragment>
-            <thead style={{display: "inline-flex", width: `${tr_length + 2 * 160}px`}}>
+            <thead style={{display: "inline-flex", width: config.freeze150 ?  `${tr_length + 2 * 150}px` : `${tr_length + 2 * 160}px`}}>
               <tr key={headerGroups[0].id}
                {...headerGroups[0].getHeaderGroupProps()}
                className="tr makeGray"
                style={{
                 position: "sticky",
-
                 left: 0,
                 zIndex: 1,
                 display: "flex",
-                width: "320px !important",
+                width: config.freeze150 ? "300px !important" : "320px !important",
 
               }}
               >
@@ -1084,8 +1038,6 @@ function Table({ columns, data, config }) {
                 >
 
                 {headerGroups[0].headers[1].render("Header")}
-
-
                   <span>
                     {/* {column.isSorted ? (column.isSortedDesc ? "↓"  : "↑"  ) : " "}  */ }
                     {headerGroups[0].headers[1].isSorted ?  "⇅"  : " "}
@@ -1101,7 +1053,7 @@ function Table({ columns, data, config }) {
               {headerGroups.map((headerGroup, index) => (
               <tr
                key={headerGroup.id}
-               {...headerGroup.getHeaderGroupProps()} className={`${(config.tableBordered) ? "hidden" : ""} tr`} style={{ width: `${tr_length}px`, display: "flex"}}>
+               {...headerGroup.getHeaderGroupProps()} className={`${config.tableBordered ? "hidden" : ""} tr`} style={{ width: `${tr_length}px`, display: "flex"}}>
                   {headerGroup.headers.map((column, i) => {
                     if(i != 0 && i != 1) {
                       return(
@@ -1129,8 +1081,6 @@ function Table({ columns, data, config }) {
               ))}
             </thead>
 
-
-
             <tbody {...getTableBodyProps()} style={{display: 'inline-flex'}} className="fixHeight">
               <tr
                 style={{
@@ -1150,7 +1100,7 @@ function Table({ columns, data, config }) {
                   className="tr makeGray"
                   style={{
                     display: "flex",
-                    width: "320px",
+                    width: config.freeze150 ? "300px !important" : "320px !important",
 
                   }}
                   >
@@ -1160,7 +1110,7 @@ function Table({ columns, data, config }) {
                       return (
                         <td
 
-                        style={{fontFamily: config.bodyStyle ? config.bodyStyle : "'Roboto'"}}
+                        style={{fontFamily: config.bodyStyle ? config.bodyStyle : "'Roboto'", width: config.freeze150 ? "150px !important" : "200px !important"}}
                         key={cell.id}
                           {...cell.getCellProps()} className="td">
                           {cell.render("Cell")}
@@ -1188,7 +1138,7 @@ function Table({ columns, data, config }) {
                       return (
                         <td
 
-                        style={{fontFamily: config.bodyStyle ? config.bodyStyle : "'Roboto'"}}
+                        style={{fontFamily: config.bodyStyle ? config.bodyStyle : "'Roboto'", width: config.freeze150 ? "150px !important" : "200px !important"}}
                         key={cell.id}
                           {...cell.getCellProps()} className="td">
                           {cell.render("Cell")}
@@ -1206,7 +1156,7 @@ function Table({ columns, data, config }) {
 
 
         <Fragment>
-           <thead style={{display: "inline-flex", width: `${tr_length + 2 * 160}px`}}>
+           <thead style={{display: "inline-flex", width: config.freeze3150 ?  `${tr_length + 2 * 150}px` : `${tr_length + 2 * 160}px`}}>
              <tr key={headerGroups[0].id}
               {...headerGroups[0].getHeaderGroupProps()}
               className="tr makeGray2"
@@ -1216,7 +1166,7 @@ function Table({ columns, data, config }) {
                left: 0,
                zIndex: 1,
                display: "flex",
-               width: "480px !important",
+               width: config.freeze3150 ? "450px !important" : "480px !important",
 
              }}
              >
@@ -1227,8 +1177,6 @@ function Table({ columns, data, config }) {
                >
 
                {headerGroups[0].headers[0].render("Header")}
-
-
                  <span>
                    {/* {column.isSorted ? (column.isSortedDesc ? "↓"  : "↑"  ) : " "}  */ }
                    {headerGroups[0].headers[0].isSorted ?  "⇅"  : " "}
@@ -1246,8 +1194,6 @@ function Table({ columns, data, config }) {
                >
 
                {headerGroups[0].headers[1].render("Header")}
-
-
                  <span>
                    {/* {column.isSorted ? (column.isSortedDesc ? "↓"  : "↑"  ) : " "}  */ }
                    {headerGroups[0].headers[1].isSorted ?  "⇅"  : " "}
@@ -1260,16 +1206,12 @@ function Table({ columns, data, config }) {
                  />
                </th>
 
-
-
                <th key={headerGroups[0].headers[2].id}
                  {...headerGroups[0].headers[2].getHeaderProps(headerGroups[0].headers[2].getSortByToggleProps())}
                  className="th makeGray2"
                >
 
                {headerGroups[0].headers[2].render("Header")}
-
-
                  <span>
                    {/* {column.isSorted ? (column.isSortedDesc ? "↓"  : "↑"  ) : " "}  */ }
                    {headerGroups[0].headers[2].isSorted ?  "⇅"  : " "}
@@ -1286,7 +1228,7 @@ function Table({ columns, data, config }) {
              {headerGroups.map((headerGroup, index) => (
              <tr
               key={headerGroup.id}
-              {...headerGroup.getHeaderGroupProps()} className={`${(config.tableBordered) ? "hidden" : ""} tr`}
+              {...headerGroup.getHeaderGroupProps()} className={`${config.tableBordered ? "hidden" : ""} tr`}
               style={{ width: `${tr_length}px`, display: "flex"}}>
                  {headerGroup.headers.map((column, i) => {
                    if(i != 0 && i != 1  && i != 2) {
@@ -1315,15 +1257,13 @@ function Table({ columns, data, config }) {
              ))}
            </thead>
 
-
-
            <tbody {...getTableBodyProps()} style={{display: 'inline-flex'}} className="fixHeight">
              <tr
                style={{
                  position: "sticky",
                  left: 0,
                  zIndex: 1,
-                 width:"480px !important"
+
                }}
 
              >
@@ -1336,7 +1276,7 @@ function Table({ columns, data, config }) {
                  className="tr makeGray2"
                  style={{
                    display: "flex",
-                   width:"480px !important"
+                  width: config.freeze3150 ? "450px !important" : "480px !important",
 
                  }}
                  >
@@ -1388,8 +1328,6 @@ function Table({ columns, data, config }) {
              </tr>
            </tbody>
          </Fragment>
-
-
 
         ) : config.index  ? (
           <Fragment>

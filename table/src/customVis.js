@@ -20,8 +20,6 @@ const dimensions = dimensionLike.map((dimension) => ({
 
  }));
 
-
-
  const { measure_like: measureLike } = queryResponse.fields;
 
 
@@ -210,11 +208,28 @@ console.log(data, "data api response")
           section: "Style",
         },
 
+        freeze150: {
+         type: "boolean",
+         label: "Make Two Frozen 150px",
+         default: false,
+         order: 15,
+          section: "Style",
+        },
+
         freeze3: {
          type: "boolean",
          label: "Freeze First 3 Columns",
          default: false,
-         order: 15,
+         order: 16,
+          section: "Style",
+        },
+
+
+        freeze3150: {
+         type: "boolean",
+         label: "Make Three Frozen 150px",
+         default: false,
+         order: 17,
           section: "Style",
         },
 
@@ -222,7 +237,7 @@ console.log(data, "data api response")
          type: "boolean",
          label: "Wrap Text",
          default: false,
-         order: 16,
+         order: 18,
           section: "Style",
         },
 
