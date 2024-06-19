@@ -177,14 +177,14 @@ console.log(data, "data api response")
            order: 31,
          },
 
-        columnsToHide: {
-            type: "string",
-           label: "Columns to Hide (use comma as delimiter)",
-           default: "",
-           display: "text",
-           section: "Style",
-           order: 32,
-        },
+        // columnsToHide: {
+        //     type: "string",
+        //    label: "Columns to Hide (use comma as delimiter)",
+        //    default: "",
+        //    display: "text",
+        //    section: "Style",
+        //    order: 32,
+        // },
 
 
         short: {
@@ -240,6 +240,15 @@ console.log(data, "data api response")
          order: 18,
           section: "Style",
         },
+
+        noScroll: {
+         type: "boolean",
+         label: "Turn off Scrolling",
+         default: false,
+         order: 19,
+          section: "Style",
+        },
+
 
 
 

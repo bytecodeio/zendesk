@@ -36,7 +36,7 @@ import { TablePagination } from "@mui/material";
 
 
 const Styles = ({ children, config }) => {
-  var { thColor, thFontSize, tableBordered, fixedHeight, unsetTable, hidePag, removeBars, rightPag, index, border, unsetWidth, titleColor,  toolOn, bodyStyle, hideTitle, tableFontSize, columnsToHide, freeze, wrapText, freeze3, short, freeze150, freeze3150 } = config;
+  var { thColor, thFontSize, tableBordered, fixedHeight, unsetTable, hidePag, removeBars, rightPag, index, border, unsetWidth, titleColor,  toolOn, bodyStyle, hideTitle, tableFontSize, columnsToHide, freeze, wrapText, freeze3, short, freeze150, freeze3150, noScroll } = config;
 
   const StyledWrapper = styled.div`
 
@@ -572,6 +572,8 @@ width: 99%;
       .th {
           font-size: 12px;
           text-transform: capitalize;
+          border-bottom: 1px solid black;
+
 
 }
           text-align: left;
@@ -760,7 +762,7 @@ max-width:120px !important;
 }
 
 thead th{
-border-bottom:1px solid black;
+
   line-height: 1.2;
 }
 
@@ -776,7 +778,7 @@ border-bottom:1px solid black;
 }
 
 thead{
-  border-bottom: 1px solid black;
+
   background:transparent
 }
 
@@ -892,6 +894,10 @@ word-break: break-all !important
   word-break: break-all !important;
 }
 
+.noScroll .fixedHeight{
+  overflow-x: hidden !important;
+}
+
 
   `;
 
@@ -901,7 +907,7 @@ word-break: break-all !important
 function Table({ columns, data, config }) {
 
 
-  var { tableBordered, fixedHeight, unsetTable, hidePag, rightPag, removeBars, index, border, textTitle, color_title, writeTitle, toolOn, writeTooltip, headerText, yesText, unsetWidth, titleColor, bodyStyle, hideTitle, tableFontSize, columnsToHide, freeze, wrapTex, freeze3, short, freeze150, freeze3150 } = config;
+  var { tableBordered, fixedHeight, unsetTable, hidePag, rightPag, removeBars, index, border, textTitle, color_title, writeTitle, toolOn, writeTooltip, headerText, yesText, unsetWidth, titleColor, bodyStyle, hideTitle, tableFontSize, columnsToHide, freeze, wrapTex, freeze3, short, freeze150, freeze3150, noScroll } = config;
 
   const defaultColumn = React.useMemo(
      () => ({
@@ -975,6 +981,7 @@ function Table({ columns, data, config }) {
    <div className={`
      ${config.border ? "removeBorder" : ""}
      ${config.wrapText ? "wrapText" : ""}
+     ${config.noScroll ? "noScroll" : ""}
      `}>
 
     <Container fluid className={`${config.removeBars ? "scrunch" : "padding-0 second"}`} id="height">
@@ -1514,22 +1521,22 @@ export const CustomTable = ({ data, config, queryResponse, details, done }) => {
   const [page, setPage] = useState(2);
   const [rowsPerPage, setRowsPerPage] = useState(2);
   const [firstData = {}] = data;
-  let cols_to_hide = [];
-
-  for (const [key, value] of Object.entries(firstData)) {
-
-
-    if (config['columnsToHide'].split(",").includes(key.split(".")[1])){
-
-      cols_to_hide.push(key);
-    }
-
-
-  }
-
-  cols_to_hide.map((col) => {
-    delete firstData[col];
-  });
+  // let cols_to_hide = [];
+  //
+  // for (const [key, value] of Object.entries(firstData)) {
+  //
+  //
+  //   if (config['columnsToHide'].split(",").includes(key.split(".")[1])){
+  //
+  //     cols_to_hide.push(key);
+  //   }
+  //
+  //
+  // }
+  //
+  // cols_to_hide.map((col) => {
+  //   delete firstData[col];
+  // });
 
   const data2 = useMemo(() => data, []);
 
