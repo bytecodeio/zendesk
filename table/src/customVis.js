@@ -79,7 +79,7 @@ console.log(data, "data api response")
 
       tableBordered: {
        type: "boolean",
-       label: "Hide Header",
+       label: "Hide Header (thead)",
        default: false,
        order: 5,
        section: "Style",
@@ -105,23 +105,23 @@ console.log(data, "data api response")
       type: "boolean",
       label: "Table Fixed Height",
       default: true,
-      order: 8,
-      section: "Style",
+      order: 1,
+      section: "Table",
     },
 
-    hidePag: {
-     type: "boolean",
-     label: "Hide Pagination",
-     default: true,
-     order: 9,
-    section: "Style",
-    },
+    // hidePag: {
+    //  type: "boolean",
+    //  label: "Hide Pagination",
+    //  default: true,
+    //  order: 9,
+    // section: "Style",
+    // },
     unsetTable: {
      type: "boolean",
      label: "Make Table Column Width Unset",
      default: false,
-     order: 10,
-     section: "Style",
+     order: 2,
+     section: "Table",
     },
     //
     // removeBars: {
@@ -135,8 +135,8 @@ console.log(data, "data api response")
      type: "boolean",
      label: "Show Row Index",
      default: true,
-     order: 11,
-      section: "Style",
+     order: 3,
+      section: "Table",
     },
 
     border: {
@@ -157,34 +157,93 @@ console.log(data, "data api response")
           values: [{ "Roboto": "'Roboto'" } , { "Open Sans": "'Open Sans'" }, {"Montserrat" : "'Montserrat'"}],
           section: "Style",
           default: "'Roboto', sans-serif;",
-          order: 29,
+          order: 20,
         },
+
+
+
+          weight: {
+            type: "string",
+             label: "Font Weight Title",
+             default: "300",
+             display: "text",
+             placeholder: "300",
+             section: "Style",
+             order: 21,
+          },
+
+          weight1: {
+            type: "string",
+             label: "Font Weight Header",
+             default: "500",
+             display: "text",
+             placeholder: "500",
+             section: "Style",
+             order: 22,
+          },
+
+          weight2: {
+            type: "string",
+             label: "Font Weight Table",
+             default: "300",
+             display: "text",
+             placeholder: "300",
+             section: "Style",
+             order: 31,
+          },
+
+      fontColor: {
+          type: "string",
+           label: "Change Table Font Color",
+           default: "#212529",
+           display: "text",
+           placeholder: "#212529",
+           section: "Style",
+           order: 32,
+        },
+
+
+        odd: {
+            type: "string",
+             label: "th Odd Background Color",
+             default: "#FCFBFA",
+             display: "text",
+             placeholder: "#FCFBFA",
+             section: "Style",
+             order: 33,
+          },
+
+
+
+
+
+
         hideTitle: {
           type: "boolean",
-          label: "Hide Title",
+          label: "Hide Title Box",
           default: false,
-          order: 30,
+          order: 34,
           section: "Style",
         },
 
-        tableFontSize: {
-           type: "string",
-           label: "Table Font Size",
-           default: "12px",
-           display: "text",
-           placeholder: "12px",
-           section: "Style",
-           order: 31,
-         },
-
-        // columnsToHide: {
-        //     type: "string",
-        //    label: "Columns to Hide (use comma as delimiter)",
-        //    default: "",
+        // tableFontSize: {
+        //    type: "string",
+        //    label: "Table Font Size",
+        //    default: "12px",
         //    display: "text",
+        //    placeholder: "12px",
         //    section: "Style",
-        //    order: 32,
-        // },
+        //    order: 31,
+        //  },
+
+        columnsToHide: {
+            type: "string",
+           label: "Columns to Hide (use comma as delimiter)",
+           default: "",
+           display: "text",
+           section: "Table",
+           order: 5,
+        },
 
 
         short: {
@@ -194,8 +253,8 @@ console.log(data, "data api response")
           default: "200px",
           display: "text",
           placeholder: "200px",
-          order: 13,
-          section: "Style",
+          order: 6,
+          section: "Table",
         },
 
 
@@ -204,49 +263,57 @@ console.log(data, "data api response")
          type: "boolean",
          label: "Freeze First 2 Columns",
          default: false,
-         order: 14,
-          section: "Style",
+         order: 7,
+          section: "Table",
         },
 
-        freeze150: {
-         type: "boolean",
-         label: "Make Two Frozen 150px",
-         default: false,
-         order: 15,
-          section: "Style",
-        },
+        // freeze150: {
+        //  type: "boolean",
+        //  label: "Make Two Frozen 150px",
+        //  default: false,
+        //  order: 8,
+        //   section: "Table",
+        // },
 
         freeze3: {
          type: "boolean",
          label: "Freeze First 3 Columns",
          default: false,
-         order: 16,
-          section: "Style",
+         order: 9,
+          section: "Table",
         },
 
 
-        freeze3150: {
-         type: "boolean",
-         label: "Make Three Frozen 150px",
-         default: false,
-         order: 17,
-          section: "Style",
-        },
+        // freeze3150: {
+        //  type: "boolean",
+        //  label: "Make Three Frozen 150px",
+        //  default: false,
+        //  order: 10,
+        //   section: "Table",
+        // },
 
         wrapText: {
          type: "boolean",
          label: "Wrap Text",
          default: false,
-         order: 18,
-          section: "Style",
+         order: 11,
+            section: "Table",
         },
 
         noScroll: {
          type: "boolean",
          label: "Turn off Scrolling",
          default: false,
-         order: 19,
-          section: "Style",
+         order: 12,
+            section: "Table",
+        },
+
+        autoCell: {
+         type: "boolean",
+         label: "Make Cells Auto",
+         default: false,
+         order: 13,
+         section: "Table",
         },
 
 

@@ -36,7 +36,7 @@ import { TablePagination } from "@mui/material";
 
 
 const Styles = ({ children, config }) => {
-  var { thColor, thFontSize, tableBordered, fixedHeight, unsetTable, hidePag, removeBars, rightPag, index, border, unsetWidth, titleColor,  toolOn, bodyStyle, hideTitle, tableFontSize, columnsToHide, freeze, wrapText, freeze3, short, freeze150, freeze3150, noScroll } = config;
+  var { thColor, thFontSize, tableBordered, fixedHeight, unsetTable, hidePag, removeBars, rightPag, index, border, unsetWidth, titleColor,  toolOn, bodyStyle, hideTitle, tableFontSize, columnsToHide, freeze, wrapText, freeze3, short, freeze150, freeze3150, noScroll, weight, weight2, fontColor, odd, autoCell, weight1 } = config;
 
   const StyledWrapper = styled.div`
 
@@ -45,7 +45,7 @@ const Styles = ({ children, config }) => {
   @import url('https://fonts.googleapis.com/css?family=Open+Sans:wght@100;300;400;500;700;900&display=swap');
   @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
 
-  @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,100;1,700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;700;900&display=swap');
 
 
   @import url("https://kit-pro.fontawesome.com/releases/v5.15.1/css/pro.min.css");
@@ -77,25 +77,7 @@ const Styles = ({ children, config }) => {
  }
 
 
-  #spark1 svg, #spark2 svg, #spark3 svg {
-      overflow: visible;
-      width: 100%;
-      max-width: 200px;
- }
-  #spark1 circle {
-      fill: transparent !important;
- }
-  #spark2 circle {
 
- }
-  #spark1 svg path {
-      stroke-width: 2px !important;
- }
-  #spark2 svg polyline {
- }
-  .redGradient {
-      fill: rgb(199, 32, 10) !important;
- }
 
   thead th {
 
@@ -156,216 +138,7 @@ const Styles = ({ children, config }) => {
   p.black {
       color: black !important;
  }
-  span.type {
-      font-size: 12px;
-      border-radius: 0.25rem;
-      padding: 0.25em 0.55em;
- }
-  span.type.positive {
-      background: #eef8e8;
-      color: #39800b;
- }
-  span.type.positive i {
-      transform: rotate(45deg);
- }
-  span.type.negative {
-      background: #fbe7e5;
-      color: #c7200a;
- }
-  span.type.negative i {
-      transform: rotate(135deg);
- }
-  li.tag {
-      font-size: 11px;
-      padding: 0.25em 1.55em;
-      border-radius: 1rem;
-      color: #1d1e20;
-      font-weight: 400;
-      display: flex;
-      justify-content: center;
-      align-items: center;
- }
-  li.tag:first-child {
- }
-  .neutral {
-      background: #e8edf3;
-      max-width: 5em;
- }
-  .branded {
-      background: #ccccff;
-      max-width: 5em;
- }
-  .critical {
-      background: #fdb6b0;
-      max-width: 5em;
- }
-  .warning {
-      background: #ffd87f;
-      position: relative;
-      padding: 0.25em 0.75em 0.25em 1.55em !important;
- }
-  .warning::before {
-      font-family: "Font Awesome 5 Pro";
-      position: absolute;
-      content: "\f06a";
-      display: inline-block;
-      left: 5px;
-      top: 4px;
- }
-  .success {
-      background: #d1ecc0;
-      max-width: 5em;
- }
-  .informational {
-      background: #b6dff7;
-      position: relative;
-      padding: 0.25em 0.75em 0.25em 1.55em !important;
- }
-  .informational::before {
-      font-family: "Font Awesome 5 Pro";
-      position: absolute;
-      content: "\f05a";
-      display: inline-block;
-      left: 5px;
-      top: 4px;
- }
-  #sentimentInfo, #tagInfo {
-      padding-left: 1em;
- }
-  .neg {
-      color: #c7200a;
-      font-size: 12px;
-      position: relative;
- }
-  .neg::before {
-      font-family: "Font Awesome 5 Pro";
-      position: absolute;
-      content: "\f119";
-      display: inline-block;
-      left: -15px;
-      top: 2px;
- }
-  .pos {
-      color: #008759;
-      font-size: 12px;
-      position: relative;
- }
-  .pos::before {
-      font-family: "Font Awesome 5 Pro";
-      position: absolute;
-      content: "\f118";
-      display: inline-block;
-      left: -15px;
-      top: 2px;
- }
-  .neut {
-      color: #ff9e00;
-      font-size: 12px;
-      position: relative;
- }
-  .neut::before {
-      font-family: "Font Awesome 5 Pro";
-      position: absolute;
-      content: "\f11a";
-      display: inline-block;
-      left: -15px;
-      top: 2px;
- }
-  p.sentiment {
-      font-size: 12px;
- }
-  .mr-2 {
-      margin-right: 0.55rem;
- }
-  .pr-1 {
-      padding-right: 0.25rem;
- }
-  .progress {
-      --bs-progress-height: 24px !important;
-      --bs-progress-font-size: 0.1rem !important;
-      --bs-progress-bg: transparent;
-      --bs-progress-border-radius: 2px !important;
-      --bs-progress-bar-color: #fff;
-      --bs-progress-bar-bg: #6253da !important;
-      max-width: 180px !important;
- }
-  .skinny .progress {
-      --bs-progress-height: 8px !important;
-      --bs-progress-font-size: 0.1rem !important;
-      --bs-progress-bg: #e5e5e5 !important;
-      --bs-progress-border-radius: 100px !important;
-      width: 200px !important;
- }
-  .skinny .progress-bar {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      overflow: hidden;
-      color: blue;
-      text-align: center;
-      white-space: nowrap;
- }
-  .progress-label {
-      color: #000000;
-      font-size: 10px;
-      font-weight: 300;
- }
-  .positiveBlock {
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: #39800b;
-      font-size: 14px;
-      font-weight: 600;
-      padding-left: 1em;
- }
-  .positiveBlock:before {
-      position: absolute;
-      content: "";
-      width: 5em;
-      left: 0;
-      z-index: 1;
-      background-color: rgba(209, 236, 192, 0.5);
-      height: 100%;
-      min-height: 4em;
- }
-  .negativeBlock:before {
-      position: absolute;
-      content: "";
-      width: 5em;
-      left: 0;
-      z-index: 1;
-      background-color: rgba(253, 182, 176, 0.5);
-      height: 100%;
-      min-height: 4em;
- }
-  .negativeBlock {
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: #c7200a;
-      font-size: 14px;
-      font-weight: 600;
-      padding-left: 1em;
- }
-  .positiveBlock p, .negativeBlock p {
-      position: relative;
-      z-index: 2;
- }
-  #tagInfo ul {
-      margin: 0;
-      display: flex;
-      justify-content: flex-start;
-      margin-left: -3.5em;
-      flex-wrap: wrap;
- }
-  #tagInfo li {
-      list-style: none;
-      margin-bottom: 0.2rem;
-      margin-right: 0.2rem;
- }
+
   td div {
       position: relative;
  }
@@ -425,13 +198,6 @@ const Styles = ({ children, config }) => {
   min-width:15%;
 }
 
-  .avatar {
-      width: 40px !important;
-      height: 40px !important;
-      border-radius: 50%;
-      object-fit: cover;
-      object-position: center right;
- }
   tr {
       border-bottom: 1px solid #FCFBFA;
  }
@@ -445,8 +211,8 @@ tr:nth-child(odd) td{
 }
 
   .fixedHeight {
-      overflow-y: auto;
-      overflow-x: auto;
+    overflow-y: auto;
+
 
   }
  }
@@ -528,17 +294,6 @@ tr:nth-child(odd) td{
 }
 
 
-#spark3{
-  display:none
-}
-
-.removeBars #spark2{
-  display:none
-}
-
-.removeBars #spark3{
-  display:block
-}
 
 .rightPag {
 display: flex;
@@ -579,6 +334,10 @@ width: 99%;
           text-align: left;
           border-right: 1px solid white;
           font-weight: 700;
+          overflow-y: hidden;
+
+          width: ${freeze ? "109%" : freeze3 ? "122%" : "100%"};
+}
      }
       .td {
 
@@ -592,7 +351,7 @@ width: 99%;
           position: relative;
           font-weight:300;
           height: 75px;
-          width:${freeze150 || freeze3150  ? "150px !important" : "200px !important"};
+          width:200px;
           font-size: 12px !important ;
      }
 
@@ -602,7 +361,7 @@ height: auto;
 display: flex !important;
 align-items: center;
 font-weight: 400;
-  width:${freeze150  || freeze3150 ? "150px !important" : "200px !important"};
+  width:200px;
      }
 
 
@@ -786,7 +545,15 @@ thead{
 
   border: 1px solid black;
   margin: 2em auto 0 auto;
+  max-width: fit-content !important;
 }
+
+.table{
+
+
+}
+
+
 h5{
   color:white;
 
@@ -832,17 +599,7 @@ table>:not(caption)>*>* {
     padding: unset;
   }
 
-.makeGray td,
-.makeGray tr:nth-child(odd) td,
-.makeGray .td,
-.makeGray,
-.makeGray2 td,
-.makeGray2 tr:nth-child(odd) td,
-.makeGray2 .td,
-.makeGray2
-{
-  background: #f4f3f3 !important
-}
+
 
 .unsetTable td,
 .unsetTable .td,
@@ -856,7 +613,7 @@ table>:not(caption)>*>* {
 
 
 .fixHeight .td{
-  height:70px !important;
+  height:63px !important;
 
 word-break: break-all !important
 }
@@ -865,12 +622,11 @@ word-break: break-all !important
 word-break: break-all !important
 }
 
-.makeGray th,
-.makeGray2 th,
-.makeGray2 .td,
+th.makeGray,
+th.makeGray2,
+.td.makeGray2,
 {
-
-  width:${freeze150 || freeze3150 ? "150px !important" : "160px !important"}
+  width:120px !important
 }
 
 
@@ -878,13 +634,38 @@ word-break: break-all !important
 .short .th,
 .short td,
 .short .td{
-
   width:${short ? `${short} !important` : "200px !important"};
   word-break: unset !important;
   height: auto !important;
- min-height: 85px !important;
+  min-height: 85px !important;
 
 }
+
+
+
+h5{
+  font-weight: ${weight ? `${weight} !important` : "300"};
+
+}
+
+
+.th{
+  color: ${fontColor ? `${fontColor} !important` : "#212529"};
+  font-weight: ${weight1 ? `${weight1} !important` : "500 !important"};
+
+}
+
+.td{
+  color: ${fontColor ? `${fontColor} !important` : "#212529"};
+  font-weight: ${weight2 ? `${weight2} !important` : "300"};
+
+}
+tr:nth-child(odd) td {
+  background: ${odd ? `${odd} !important`: "#FCFBFA !important"};
+}
+
+
+
 
 .wrapText .short th,
 .wrapText .short .th,
@@ -898,6 +679,43 @@ word-break: break-all !important
   overflow-x: hidden !important;
 }
 
+.autoCell .td,
+.autoCell .tr,
+.autoCell td,
+.autoCell tr,
+.autoCell th{
+  width: 100% !important;
+  min-width:100px !important;
+  height:auto !important;
+  max-height: 63px;
+}
+
+.autoCell .table {
+     display: table;
+}
+
+.makeGray td,
+.makeGray tr:nth-child(odd) td,
+.makeGray .td,
+.makeGray
+
+{
+  background: #f4f3f3 !important;
+  width:240px !important;
+  word-break: unset !important;
+}
+
+.makeGray2 td,
+.makeGray2 tr:nth-child(odd) td,
+.makeGray2 .td,
+.makeGray2
+{
+  background: #f4f3f3 !important;
+  width:360px !important;
+  word-break: unset !important;
+}
+
+
 
   `;
 
@@ -906,13 +724,12 @@ word-break: break-all !important
 
 function Table({ columns, data, config }) {
 
-
-  var { tableBordered, fixedHeight, unsetTable, hidePag, rightPag, removeBars, index, border, textTitle, color_title, writeTitle, toolOn, writeTooltip, headerText, yesText, unsetWidth, titleColor, bodyStyle, hideTitle, tableFontSize, columnsToHide, freeze, wrapTex, freeze3, short, freeze150, freeze3150, noScroll } = config;
+  var { tableBordered, fixedHeight, unsetTable, hidePag, rightPag, removeBars, index, border, textTitle, color_title, writeTitle, toolOn, writeTooltip, headerText, yesText, unsetWidth, titleColor, bodyStyle, hideTitle, tableFontSize, columnsToHide, freeze, wrapTex, freeze3, short, freeze150, freeze3150, noScroll, autoCell } = config;
 
   const defaultColumn = React.useMemo(
      () => ({
        minWidth: 40,
-       width: config.freeze150 || config.freeze3150  ? 150 : 200,
+       width: 200,
        maxWidth: 400,
      }),
      []
@@ -982,16 +799,17 @@ function Table({ columns, data, config }) {
      ${config.border ? "removeBorder" : ""}
      ${config.wrapText ? "wrapText" : ""}
      ${config.noScroll ? "noScroll" : ""}
+     ${config.autoCell  ? "autoCell" : ""}
      `}>
 
     <Container fluid className={`${config.removeBars ? "scrunch" : "padding-0 second"}`} id="height">
-      <div className="greenBox pt-3" style={{ backgroundColor: config.color_title ? background[0] : '#00363d'}}>
+      <div className="greenBox pt-3" style={{ backgroundColor: config.color_title ? background[0] : '#00363d', display: config.hideTitle ? "none" : ""}}>
         <OverlayTrigger
           trigger={config.toolOn ? "hover" : "" }
           placement="right"
           overlay={popoverHoverFocus}
         >
-          <h5 className={config.hideTitle ?  "transparentText mb-0"  : "mb-0"} style={{ color: titleColor ? titleColor : '#fff', fontFamily: bodyStyle ? bodyStyle : "'Roboto'"}}>{config.writeTitle === "" ? title : config.writeTitle}</h5>
+          <h5 className="mb-0" style={{ color: titleColor ? titleColor : '#fff', fontFamily: bodyStyle ? bodyStyle : "'Roboto'"}}>{config.writeTitle === "" ? title : config.writeTitle}</h5>
         </OverlayTrigger>
       </div>
 
@@ -1006,7 +824,7 @@ function Table({ columns, data, config }) {
         {
          config.freeze  ? (
          <Fragment>
-            <thead style={{display: "inline-flex", width: config.freeze150 ?  `${tr_length + 2 * 150}px` : `${tr_length + 2 * 160}px`}}>
+            <thead style={{display: "inline-flex", width: config.freeze?  `${tr_length + 2 * 150}px` : `${tr_length + 2 * 160}px`}}>
               <tr key={headerGroups[0].id}
                {...headerGroups[0].getHeaderGroupProps()}
                className="tr makeGray"
@@ -1015,7 +833,7 @@ function Table({ columns, data, config }) {
                 left: 0,
                 zIndex: 1,
                 display: "flex",
-                width: config.freeze150 ? "300px !important" : "320px !important",
+                width: config.freeze ? "300px !important" : "320px !important",
 
               }}
               >
@@ -1117,6 +935,7 @@ function Table({ columns, data, config }) {
                       return (
                         <td
 
+
                         style={{fontFamily: config.bodyStyle ? config.bodyStyle : "'Roboto'", width: config.freeze150 ? "150px !important" : "200px !important"}}
                         key={cell.id}
                           {...cell.getCellProps()} className="td">
@@ -1138,7 +957,9 @@ function Table({ columns, data, config }) {
                 return (
                   <tr
                   key={row.id}
-                  {...row.getRowProps()} className="tr" style={{ width: `${tr_length}px`, display: "flex" }}>
+                  {...row.getRowProps()} className="tr"
+                  style={{ width: `${tr_length}px - 320px`, display: "flex" }}
+                  >
 
                     {row.cells.map((cell, index) => {
                       if(index != 0 && index != 1) {
@@ -1475,7 +1296,7 @@ function Table({ columns, data, config }) {
 
   </div>
 
-<div className={`${config.hidePag ? "hidden" : "pagination display-flex justify-content-center align-items-center" }`}>
+<div className={`${config.hidePag ? "hidden" : "hidden" }`}>
 
               <Button className="clear" onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
                 {<i class="fal fa-angle-double-left"></i>}
@@ -1521,22 +1342,22 @@ export const CustomTable = ({ data, config, queryResponse, details, done }) => {
   const [page, setPage] = useState(2);
   const [rowsPerPage, setRowsPerPage] = useState(2);
   const [firstData = {}] = data;
-  // let cols_to_hide = [];
-  //
-  // for (const [key, value] of Object.entries(firstData)) {
-  //
-  //
-  //   if (config['columnsToHide'].split(",").includes(key.split(".")[1])){
-  //
-  //     cols_to_hide.push(key);
-  //   }
-  //
-  //
-  // }
-  //
-  // cols_to_hide.map((col) => {
-  //   delete firstData[col];
-  // });
+  let cols_to_hide = [];
+
+  for (const [key, value] of Object.entries(firstData)) {
+
+
+    if (config['columnsToHide'].split(",").includes(key.split(".")[1])){
+
+      cols_to_hide.push(key);
+    }
+
+
+  }
+
+  cols_to_hide.map((col) => {
+    delete firstData[col];
+  });
 
   const data2 = useMemo(() => data, []);
 
