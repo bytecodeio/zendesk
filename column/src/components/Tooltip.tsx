@@ -28,7 +28,9 @@ const TooltipRow: React.FC<TooltipRowProps> = ({
     measureLabel,
     measureLabel0,
     dimensionLabel0,
-    secondMeasure
+    measureLabelSecond,
+    measureLabelSecond0,
+    
   } = tooltipRow;
 
 
@@ -65,14 +67,16 @@ interface TooltipProps {
 
 const Tooltip: React.FC<TooltipProps> = (
   { hasPivot, hasNoPivot, tooltipData, measureValue, dimensionName, measureLabel, dimensionLabel0, measureLabel0,
-  secondMeasure }
+    measureLabelSecond, measureLabelSecond0 }
 
 
 ) => {
-const { dimensionLabel, left, rows, top, yAlign, measureValue, dimensionName, measureLabel, dimensionLabel0, measureLabel0, secondMeasure } = tooltipData;
-  console.log('tooltip')
-  console.log(measureLabel)
-  console.log(measureLabel0)
+const { dimensionLabel, left, rows, top, yAlign, measureValue, dimensionName, measureLabel, dimensionLabel0, measureLabel0, measureLabelSecond, measureLabelSecond0 } = tooltipData;
+  // console.log('tooltip')
+  // console.log(measureLabel, measureLabelSecond)
+  // console.log(measureLabel0)
+  // console.log(typeof measureLabelSecond, typeof measureLabelSecond == "undefined", measureLabelSecond == "undefined")
+  // console.log(measureLabelSecond0)
   return (
     <div
       className={`chartjs-tooltip ${yAlign ?? "no-transform"}`}
@@ -80,22 +84,23 @@ const { dimensionLabel, left, rows, top, yAlign, measureValue, dimensionName, me
     >
 
       {hasPivot && (
-      <div className="dimension-label mb-3">{dimensionLabel}</div>
-
+        <div className="dimension-label mb-3">{dimensionLabel}</div>
       )}
 
       {hasNoPivot && (
-      <div className="measure-comparison-wrapper d-flex flex-column justify-content-start text-left align-item-start">
-
-
-      <div className="dimension-label">{dimensionLabel0}</div>
-      <div className="dimension-label">{dimensionLabel}</div>
-      <div className="dimension-label">{measureLabel}</div>
-      <div className="dimension-label">{measureLabel0}</div>
-
-
-      </div>
-        )}
+        <div className="measure-comparison-wrapper d-flex flex-column justify-content-start text-left align-item-start">
+          <div className="dimension-label">{dimensionLabel0}</div>
+          <div className="dimension-label">{dimensionLabel}</div>
+          <div className="dimension-label">{measureLabel}</div>
+          <div className="dimension-label">{measureLabel0}</div>
+          {measureLabelSecond !== "undefined" && measureLabelSecond0.toString() != 'NaN' && (
+            <>
+              <div className="dimension-label">{measureLabelSecond}</div>
+              <div className="dimension-label">{measureLabelSecond0}</div>
+            </>
+          )}
+        </div>
+      )}
 
       {rows.map((tooltipRow, i) => (
         <TooltipRow

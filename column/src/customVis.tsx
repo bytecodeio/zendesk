@@ -82,6 +82,7 @@ looker.plugins.visualizations.add({
     const fieldOptions0: FieldOption[] = [...dimensions, ...measures].map((all) => ({
       [all.label]: all.name,
     }));
+    fieldOptions0.push({[""]: ""})
 
 
     console.log(measures[0].name, measures[0].label, "elizabeth")
@@ -383,6 +384,16 @@ looker.plugins.visualizations.add({
         default: false,
 
         order: 30,
+        section: "Chart",
+      },
+
+      secondMeasure: {
+        type: "string",
+        label: "Choose second measure to display in tooltip",
+        display: "select",
+        values: fieldOptions0,
+        order: 31,
+        default:"",
         section: "Chart",
       },
 
