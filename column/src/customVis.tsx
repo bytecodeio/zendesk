@@ -82,6 +82,7 @@ looker.plugins.visualizations.add({
     const fieldOptions0: FieldOption[] = [...dimensions, ...measures].map((all) => ({
       [all.label]: all.name,
     }));
+    fieldOptions0.push({[""]: ""})
 
 
     console.log(measures[0].name, measures[0].label, "elizabeth")
@@ -249,6 +250,20 @@ looker.plugins.visualizations.add({
         order: 22,
         section: "Y-Axis",
       },
+      minYValues: {
+        type: "string",
+        label: "Minimum y values",
+        default: "0",
+        order: 23,
+        section: "Y-Axis",
+      },
+      maxYValues: {
+        type: "string",
+        label: "Maximum y values",
+        default: "1000000",
+        order: 24,
+        section: "Y-Axis",
+      },
       showDatalabels: {
         type: "boolean",
         label: "Show Data Labels",
@@ -382,7 +397,17 @@ looker.plugins.visualizations.add({
         label: "Turn on Second Legend",
         default: false,
 
-        order: 30,
+        order: 32,
+        section: "Chart",
+      },
+
+      secondMeasure: {
+        type: "string",
+        label: "Choose second measure to display in tooltip",
+        display: "select",
+        values: fieldOptions0,
+        order: 33,
+        default:"",
         section: "Chart",
       },
 
@@ -497,6 +522,22 @@ looker.plugins.visualizations.add({
          order: 35,
          section: "Style",
        },
+
+       writeLabel: {
+        type: "string",
+        label: "Override Second Legend",
+        default: "",
+        order: 30,
+        section: "Chart",
+      },
+
+      writeAggregateLabel: {
+        type: "string",
+        label: "Override Aggregate Label",
+        default: "",
+        order: 31,
+        section: "Chart",
+      },
 
 
 

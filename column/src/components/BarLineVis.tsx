@@ -176,6 +176,8 @@ function BarLineVis({ data, fields, config, lookerCharts, lookerVis, configOptio
     bodyStyle,
     showDifference,
     writeTargetLabel,
+    writeLabel,
+    writeAggregateLabel,
     targetLabel,
     showAverage,
     hideCaret,
@@ -184,7 +186,8 @@ function BarLineVis({ data, fields, config, lookerCharts, lookerVis, configOptio
     autoData,
     hideChart,
     fullWidth,
-    secondLegend
+    secondLegend,
+    secondMeasure
   } = config;
 
 
@@ -208,12 +211,16 @@ function BarLineVis({ data, fields, config, lookerCharts, lookerVis, configOptio
   );
 
   // map Looker query data to ChartJS data format
+  // console.log(fields)
   const dimensionName = fields.dimensions[0];
   const measureName = fields.measures[0];
   const previousPeriodFieldName = fields.measures[0];
   const dimensionLabel = fields.dimensionsLabel[0];
-  const measureLabel = fields.measuresLabel[0];
+  const measureLabel = yAxisLeftValues;
+  const measureLabelSecond = secondMeasure;
+  console.log('first: ', measureLabel, 'second: ', measureLabelSecond)
 
+  // console.log('tooltip', measureName, measureLabel, measureLabelSecond)
 
   const [firstData = {}] = data;
   let cols_to_hide = [];
@@ -250,7 +257,6 @@ function BarLineVis({ data, fields, config, lookerCharts, lookerVis, configOptio
   //
   //
   // console.log(tooltipMeasure, "count_orders")
-
 
   const colors = config.color_range
 
@@ -346,7 +352,7 @@ function BarLineVis({ data, fields, config, lookerCharts, lookerVis, configOptio
 
         {
             type: "line",
-            label: "Current Week",
+            label: writeLabel !== "" ? writeLabel : "Current Week",
             backgroundColor:
               chartType === "line" ? `#${colors[1]}` : `#${colors[0]}`,
             borderColor: `${color_range ? colors[0] : colors[0]}`,
@@ -362,7 +368,6 @@ function BarLineVis({ data, fields, config, lookerCharts, lookerVis, configOptio
 
 
       else {
-
         datasets.push(
 
           {
@@ -372,6 +377,8 @@ function BarLineVis({ data, fields, config, lookerCharts, lookerVis, configOptio
 
           },
 
+
+
           type: lineChart ? "line" : "bar",
           label: `${changeLegend ? changeLegend : measureLabel}`,
 
@@ -380,6 +387,7 @@ function BarLineVis({ data, fields, config, lookerCharts, lookerVis, configOptio
           borderColor: `${color_range ? colors[0] : colors[0]}`,
           pointBackgroundColor: `${color_range ? colors[0] : colors[0]}`,
           data:yAxisValues,
+          secondData:secondValues,
           // data: yAxisLeftValues ? yAxisLeftValues.split(",") : data.map((row) => row[measureName].value),
           yAxisID: "yLeft",
           fill,
@@ -415,9 +423,9 @@ function BarLineVis({ data, fields, config, lookerCharts, lookerVis, configOptio
     tooltip: TooltipModel<"bar" | "scatter">;
   }
 
+
   function tooltipHandler(
     context: TooltipContext,
-
 
     setTooltip: (newState: TooltipData | null) => void
   ) {
@@ -429,10 +437,6 @@ function BarLineVis({ data, fields, config, lookerCharts, lookerVis, configOptio
       const { dataIndex } = context.tooltip.dataPoints[0];
 
       const lookerRow = data[dataIndex];
-
-      console.log('measures')
-      console.log(data, dataIndex)
-
 
       let rows: TooltipRow[] = [];
       // if (showAllValuesInTooltip ) {
@@ -467,41 +471,6 @@ function BarLineVis({ data, fields, config, lookerCharts, lookerVis, configOptio
 
           }
         );
-      // }
-
-
-      // else {
-      //
-      //   const pivotValue = context.tooltip.dataPoints[0].dataset.label;
-      //
-      //   const previousPeriodValue =
-      //   data[dataIndex][periodComparisonMeasure][pivotValue].value;
-      //   const currentPeriodValue = context.tooltip.dataPoints[0].raw as number;
-      //
-      //   const hasPreviousPeriod =
-      //   hasPeriodComparisonMeasure && !!previousPeriodValue;
-      //   const periodComparisonValue =
-      //   ((currentPeriodValue - previousPeriodValue) / previousPeriodValue) *
-      //   100;
-      //
-      //   rows = [
-      //     {
-      //       hasPreviousPeriod,
-      //       measureValue: `${
-      //         context.tooltip.dataPoints[0].formattedValue
-      //       }`,
-      //
-      //
-      //       periodComparisonValue,
-      //       pivotColor: context.tooltip.dataPoints[0].dataset
-      //       .borderColor as string,
-      //       pivotText: context.tooltip.dataPoints[0].dataset.label,
-      //     },
-      //   ];
-      // }
-
-
-
 
       setTooltip({
 
@@ -510,8 +479,8 @@ function BarLineVis({ data, fields, config, lookerCharts, lookerVis, configOptio
 
         dimensionLabel: `${context.tooltip.title[0]}`,
         measureLabel: `${context.tooltip.dataPoints[0].dataset.label}: `,
-
-
+        // measureLabel: `${measureLabel.split('.')[measureLabel.split('.').length-1]}`,
+        measureLabelSecond: `${secondMeasure.split('.')[secondMeasure.split('.').length-1]}`,
 
         // measureLabel0: `${yAxisLeftValues}: `,
         // measureLabel0: `${context.tooltip.dataPoints[0].formattedValue}`,
@@ -522,7 +491,7 @@ function BarLineVis({ data, fields, config, lookerCharts, lookerVis, configOptio
           dollar ? `$${context.tooltip.dataPoints[0].formattedValue}` :
           parseInt(context.tooltip.dataPoints[0].formattedValue*1) < 1 ? `${(context.tooltip.dataPoints[0].formattedValue*1).toFixed(parseInt(decimalPlace))}` :
           `${context.tooltip.dataPoints[0].formattedValue}` ,
-
+        measureLabelSecond0: (secondValues[context.tooltip.dataPoints[0].dataIndex]*1).toFixed(parseInt(decimalPlace)) ,
         left:
             position.left + window.pageXOffset + context.tooltip.caretX + "px",
             rows,
@@ -561,11 +530,29 @@ function BarLineVis({ data, fields, config, lookerCharts, lookerVis, configOptio
 
   const yAxisValues = data.map(item => item[yAxisLeftValues].value)
 
+  const yAxisValues = yAxisValues.map(
+    element => {
+          if (~isNaN(element)) {
+            return parseFloat(element);
+          } else {
+            if (element != 'NaN') {
+              return parseFloat(element);
+            } else {
+              return 0;
+            }
+          }
+        }
+  )
+  console.log('yaxis', yAxisValues)
+  const secondValues = secondMeasure !== "" ? data.map(item => item[secondMeasure].value) : ""
+
 
 
   var total = 0;
   for(var i = 0; i < yAxisValues.length; i++) {
+    if (!isNaN(yAxisValues[i])) {
       total += yAxisValues[i];
+    }
   }
   var avg = total / yAxisValues.length;
 
@@ -579,8 +566,9 @@ function calculateAverage(array) {
 let num = 0;
 for (let i = 0; i < yAxisValues.length; i++) {
    // console.log(yAxisValues[i]);
-
- num += +yAxisValues[i];
+ if (!isNaN(yAxisValues[i])){
+  num += +yAxisValues[i];
+ }
    // console.log(yAxisValues.length)
 }
 return num / yAxisValues.length
@@ -607,7 +595,7 @@ var average =  percentSign ? Math.round(average * 100).toFixed(parseInt(decimalP
 
 
   let result = data.map(item => item[symbol].value)
-
+  console.log('result', result)
 
   let targetRaw = result[0]
 
@@ -658,7 +646,7 @@ const percentDiff3 = percentSign ? Math.round(last / (parseInt(average)/100) * 1
 
 
 
-console.log(last, percentDiff1, percentDiff2, percentDiff3 )
+// console.log(last, percentDiff1, percentDiff2, percentDiff3 )
 
 
   const popoverHoverFocus = (
@@ -716,7 +704,10 @@ console.log(last, percentDiff1, percentDiff2, percentDiff3 )
 
           display: showDatalabels && !autoData ?  "auto" :  showDatalabels && autoData  ? true : !showDatalabels && autoData ? false : !showDatalabels && !autoData ? false : false,
           formatter: function(value: number) {
-
+            // console.log('check', value, typeof value, value == null, isNaN(value), value.toString(), value.toString() == 'NaN')
+           if (typeof value === 'string' || value == null || isNaN(value) || value.toString() == 'NaN' || value.toString() == 'N/A'){
+              return 'N/A'
+           }
            if (value > 0 && value <  1){
                 return `${percentSign ? (value*100).toFixed(parseInt(decimalPlace)) + '%' : dollar ? '$' + (value).toFixed(parseInt(decimalPlace)) : (value).toFixed(parseInt(decimalPlace))}`
             }
@@ -829,6 +820,8 @@ console.log(last, percentDiff1, percentDiff2, percentDiff3 )
         },
 
         yLeft: {
+          min: 0,
+          max: 10000,
           border: {
             display: false,
           },
@@ -1017,7 +1010,7 @@ console.log(last, percentDiff1, percentDiff2, percentDiff3 )
     <p style={{fontFamily: bodyStyle ? bodyStyle : "'Roboto'"}} className={showXGridLines ? "rightP" : "rightP moveDown"}>{lastLabel}</p>
     </div>
     <div className={hideBottom && !hideChart ? "bottom hideBottom" : hideChart && hideBottom ? "hidden" : "bottom"}>
-    <p style={{fontFamily: bodyStyle ? bodyStyle : "'Roboto'"}}>L13W Avg</p>
+    <p style={{fontFamily: bodyStyle ? bodyStyle : "'Roboto'"}}>{writeAggregateLabel !== "" ? writeAggregateLabel: "L13W Avg"}</p>
     <p style={{fontFamily: bodyStyle ? bodyStyle : "'Roboto'"}}>{dollar ? "$" : ""}{average}{percentSign ? "%" : ""}</p>
     </div>
     </div>
