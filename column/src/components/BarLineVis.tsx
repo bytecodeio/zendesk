@@ -515,11 +515,11 @@ function BarLineVis({ data, fields, config, lookerCharts, lookerVis, configOptio
 
         // measureLabel0: `${yAxisLeftValues}: `,
         // measureLabel0: `${context.tooltip.dataPoints[0].formattedValue}`,
-        measureLabel0: 
+        measureLabel0:
           percentSign && parseInt(context.tooltip.dataPoints[0].formattedValue*1) < 1 ? `${(context.tooltip.dataPoints[0].formattedValue*100).toFixed(parseInt(decimalPlace))}%` :
           percentSign ? `${context.tooltip.dataPoints[0].formattedValue*100}%`  :
-          dollar && parseInt(context.tooltip.dataPoints[0].formattedValue*1) < 1 ? `$${(context.tooltip.dataPoints[0].formattedValue*1).toFixed(parseInt(decimalPlace))}` : 
-          dollar ? `$${context.tooltip.dataPoints[0].formattedValue}` : 
+          dollar && parseInt(context.tooltip.dataPoints[0].formattedValue*1) < 1 ? `$${(context.tooltip.dataPoints[0].formattedValue*1).toFixed(parseInt(decimalPlace))}` :
+          dollar ? `$${context.tooltip.dataPoints[0].formattedValue}` :
           parseInt(context.tooltip.dataPoints[0].formattedValue*1) < 1 ? `${(context.tooltip.dataPoints[0].formattedValue*1).toFixed(parseInt(decimalPlace))}` :
           `${context.tooltip.dataPoints[0].formattedValue}` ,
 
@@ -611,12 +611,12 @@ var average =  percentSign ? Math.round(average * 100).toFixed(parseInt(decimalP
 
   let targetRaw = result[0]
 
-  let target = 
-  percentSign ? (result[0] * 100).toFixed(parseInt(decimalPlace)).toLocaleString() : 
+  let target =
+  percentSign ? (result[0] * 100).toFixed(parseInt(decimalPlace)).toLocaleString() :
   result[0] > 0 && result[0] < 1 ? (result[0] * 1).toFixed(parseInt(decimalPlace)).toLocaleString() :
   result[0] < 1000 ? Math.round(result[0]).toLocaleString() :
    Math.round(result[0] * 1).toLocaleString()
-  
+
 
   let yAxisRightDropdownValues = Content.map(function(val, i){ return val.yAxisRightDropdown });
 
@@ -962,7 +962,7 @@ console.log(last, percentDiff1, percentDiff2, percentDiff3 )
 
       <h1 style={{fontFamily: bodyStyle ? bodyStyle : "'Roboto'"}} className="mb-0">
       {dollar ? "$" : ""}
-      {percentSign ? (last * 100).toFixed(parseInt(decimalPlace)).toLocaleString() : 
+      {percentSign ? (last * 100).toFixed(parseInt(decimalPlace)).toLocaleString() :
        last > 0 && last < 1 ? (last * 1).toFixed(parseInt(decimalPlace)).toLocaleString() :
        last < 1000 ? Math.round(last * 1).toLocaleString() :
        Math.round(last * 1).toLocaleString()}
