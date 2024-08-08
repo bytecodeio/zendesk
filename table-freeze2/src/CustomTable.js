@@ -777,7 +777,7 @@ max-width:120px !important;
 
 
 .aroundIt{
-  box-shadow: 0px 0px 19px -1px rgba(175,175,175,.67);
+
 
   height:436px
 
@@ -886,6 +886,13 @@ word-break: break-all !important
 }
 
 
+#height{
+  width: auto !important;
+  max-width: min-content !important;
+}
+
+
+
   `;
 
   return <StyledWrapper>{children}</StyledWrapper>;
@@ -991,7 +998,7 @@ function Table({ columns, data, config }) {
         {
            config.freeze  ? (
          <Fragment>
-            <thead style={{display: "inline-flex", width: `${tr_length + 2 * 160}px`}}>
+            <thead style={{display: "inline-flex"}}>
               <tr key={headerGroups[0].id}
                {...headerGroups[0].getHeaderGroupProps()}
                className="tr makeGray"

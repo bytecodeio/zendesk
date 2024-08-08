@@ -777,7 +777,7 @@ max-width:120px !important;
 
 
 .aroundIt{
-  box-shadow: 0px 0px 19px -1px rgba(175,175,175,.67);
+
 
   height:436px
 
@@ -897,7 +897,10 @@ word-break: break-all !important
     word-break: break-all !important
 }
 
-
+#height{
+  width: auto !important;
+  max-width: min-content !important;
+}
 
 
   `;
@@ -972,7 +975,11 @@ function Table({ columns, data, config }) {
     <p className="m-0">{config.writeTooltip}</p>
     </Popover>
   );
-  const tr_length = (headerGroups[0].headers.length - 2) * 160
+  const tr_length = (headerGroups[0].headers.length - 3 ) * 160
+
+
+
+  console.log(tr_length , "tr_length ")
 
   return (
     <>
@@ -1006,7 +1013,7 @@ function Table({ columns, data, config }) {
            config.freeze  ? (
 
                      <Fragment>
-                        <thead style={{display: "inline-flex", width: config.freeze3150 ?  `${tr_length + 2 * 150}px` : `${tr_length + 2 * 160}px`}}>
+                        <thead style={{display: "inline-flex"}}>
                           <tr key={headerGroups[0].id}
                            {...headerGroups[0].getHeaderGroupProps()}
                            className="tr makeGray2"
