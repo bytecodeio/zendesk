@@ -236,14 +236,6 @@ console.log(data, "data api response")
         //    order: 31,
         //  },
 
-        columnsToHide: {
-            type: "string",
-           label: "Columns to Hide (use comma as delimiter)",
-           default: "",
-           display: "text",
-           section: "Table",
-           order: 5,
-        },
 
 
         short: {

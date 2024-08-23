@@ -1342,22 +1342,7 @@ export const CustomTable = ({ data, config, queryResponse, details, done }) => {
   const [page, setPage] = useState(2);
   const [rowsPerPage, setRowsPerPage] = useState(2);
   const [firstData = {}] = data;
-  let cols_to_hide = [];
 
-  for (const [key, value] of Object.entries(firstData)) {
-
-
-    if (config['columnsToHide'].split(",").includes(key.split(".")[1])){
-
-      cols_to_hide.push(key);
-    }
-
-
-  }
-
-  cols_to_hide.map((col) => {
-    delete firstData[col];
-  });
 
   const data2 = useMemo(() => data, []);
 
@@ -1369,72 +1354,7 @@ export const CustomTable = ({ data, config, queryResponse, details, done }) => {
 
 
 
- if(key.indexOf('.') !== -1) {
 
-  const [tableKeyword, slicedKey] = key.split(".");
-  const dimension = config.query_fields.dimensions.find(
-    (dimension) => dimension.name === key
-  );
-
-  return {
-    Header:
-      slicedKey === key
-        ? key
-        : dimension?.field_group_variant ||
-
-
-          config.query_fields.measures.find(
-            (dimension) => dimension.name === key
-          )?.field_group_variant ||
-          slicedKey,
-
-      accessor: (d) => {
-      return d[key].value;
-    },
-
-    sortable: true,
-
-    sortType: "basic",
-
-
-    Cell: ({ cell, value, row }) => {
-
-
-       if (slicedKey === "days_since_last_activity_from_today") {
-         return (
-                       <>
-
-                           <span class="redBackground">
-                             {row.original[key]?.rendered || row.original[key]?.value}
-                           </span>
-
-                       </>
-                     );
-
-       }
-
-      if (row.original[key]?.html){
-
-
-      let comment1 = `${row.original[key]?.html}`
-      return <div dangerouslySetInnerHTML={{__html:comment1}} />
-
-    }
-    else{
-      return row.original[key]?.rendered || row.original[key]?.value
-    }
-
-      {/*return row.original[key]?.rendered || row.original[key]?.value*/}
-    },
-
-    headerClassName: "table-header1",
-  };
-
-
-
-}
-
-else{
   return {
     id: key,
     Header: createLabel(key),
@@ -1480,7 +1400,7 @@ else{
     headerClassName: "table-header1",
   };
 
-}
+
 
         }),
       []
