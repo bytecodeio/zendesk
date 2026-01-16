@@ -1332,7 +1332,10 @@ const createLabel = (label) => {
   return splitByDash;
 };
 
-
+// Helper function to add rel="noopener noreferrer" to all anchor tags
+const addRelToLinks = (htmlString) => {
+  return htmlString.replace(/<a\s+/gi, '<a rel="noopener noreferrer" ');
+};
 
 export const CustomTable = ({ data, config, queryResponse, details, done }) => {
 
@@ -1434,7 +1437,7 @@ const measureName = fields.measures[0];
 
 
       let comment1 = `${row.original[key]?.html}`
-      return <div dangerouslySetInnerHTML={{__html:comment1}} />
+      return <div dangerouslySetInnerHTML={{__html:addRelToLinks(comment1)}} />
 
     }
     else{
@@ -1485,7 +1488,7 @@ else{
 
 
       let comment1 = `${row.original[key]?.html}`
-      return <div dangerouslySetInnerHTML={{__html:comment1}} />
+      return <div dangerouslySetInnerHTML={{__html:addRelToLinks(comment1)}} />
 
     }
     else{
