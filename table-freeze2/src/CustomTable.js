@@ -1332,9 +1332,35 @@ const createLabel = (label) => {
   return splitByDash;
 };
 
-// Helper function to add rel="noopener noreferrer" to all anchor tags
+// Helper function to add rel="noopener noreferrer" to all anchor tags (including nested)
 const addRelToLinks = (htmlString) => {
-  return htmlString.replace(/<a\s+/gi, '<a rel="noopener noreferrer" ');
+  // Match all <a ...> tags regardless of nesting, with or without attributes
+  const result = htmlString.replace(/<a\s+([^>]*?)>/gi, (match, attrs) => {
+    // Check if rel already exists
+    if (/\brel\s*=/i.test(attrs)) {
+      // If rel exists, append noopener noreferrer to it
+      const replacement = match.replace(/\brel\s*=\s*["']([^"']*?)["']/i, (relMatch, relValue) => {
+        const newRel = relValue + ' noopener noreferrer';
+        console.log('[addRelToLinks] Updating existing rel attribute:', { original: match, newRel });
+        return relMatch.substring(0, relMatch.lastIndexOf(relValue)) + newRel + relMatch.charAt(relMatch.length - 1);
+      });
+      return replacement;
+    } else {
+      // If no rel, add it
+      const replacement = '<a rel="noopener noreferrer" ' + attrs + '>';
+      console.log('[addRelToLinks] Adding new rel attribute:', { original: match, replacement });
+      return replacement;
+    }
+  }).replace(/<a>/gi, (match) => {
+    console.log('[addRelToLinks] Adding rel to bare <a> tag:', { original: match });
+    return '<a rel="noopener noreferrer">';
+  });
+  
+  if (result !== htmlString) {
+    console.log('[addRelToLinks] HTML content was modified with security attributes');
+  }
+  
+  return result;
 };
 
 export const CustomTable = ({ data, config, queryResponse, details, done }) => {
