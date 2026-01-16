@@ -1334,32 +1334,73 @@ const createLabel = (label) => {
 
 // Helper function to add rel="noopener noreferrer" to all anchor tags (including nested)
 const addRelToLinks = (htmlString) => {
-  // Match all <a ...> tags regardless of nesting, with or without attributes
-  const result = htmlString.replace(/<a\s+([^>]*?)>/gi, (match, attrs) => {
-    // Check if rel already exists
+  console.log('[addRelToLinks] Function called with HTML:', htmlString);
+  
+  if (!htmlString || typeof htmlString !== 'string') {
+    console.log('[addRelToLinks] Invalid input - not a string');
+    return htmlString;
+  }
+
+  let result = htmlString;
+  let modified = false;
+
+  // Pattern 1: <a with space and attributes
+  result = result.replace(/<a\s+([^>]*?)>/gi, (match, attrs) => {
+    console.log('[addRelToLinks] Pattern 1 match (with attributes):', match);
+    
     if (/\brel\s*=/i.test(attrs)) {
-      // If rel exists, append noopener noreferrer to it
       const replacement = match.replace(/\brel\s*=\s*["']([^"']*?)["']/i, (relMatch, relValue) => {
         const newRel = relValue + ' noopener noreferrer';
         console.log('[addRelToLinks] Updating existing rel attribute:', { original: match, newRel });
+        modified = true;
         return relMatch.substring(0, relMatch.lastIndexOf(relValue)) + newRel + relMatch.charAt(relMatch.length - 1);
       });
       return replacement;
     } else {
-      // If no rel, add it
       const replacement = '<a rel="noopener noreferrer" ' + attrs + '>';
       console.log('[addRelToLinks] Adding new rel attribute:', { original: match, replacement });
+      modified = true;
       return replacement;
     }
-  }).replace(/<a>/gi, (match) => {
-    console.log('[addRelToLinks] Adding rel to bare <a> tag:', { original: match });
+  });
+
+  // Pattern 2: Bare <a> tags
+  result = result.replace(/<a>/gi, (match) => {
+    console.log('[addRelToLinks] Pattern 2 match (bare <a>):', match);
+    modified = true;
     return '<a rel="noopener noreferrer">';
   });
-  
-  if (result !== htmlString) {
-    console.log('[addRelToLinks] HTML content was modified with security attributes');
+
+  // Pattern 3: <a> with no space but with attributes (edge case)
+  result = result.replace(/<a([^>]+)>/gi, (match, attrs) => {
+    // Only process if not already caught by pattern 1 (i.e., doesn't have leading space)
+    if (!match.match(/^<a\s/) && attrs && !/<a\s/.test(match)) {
+      console.log('[addRelToLinks] Pattern 3 match (no space before attrs):', match);
+      if (/\brel\s*=/i.test(attrs)) {
+        // Already has rel, skip
+        return match;
+      } else {
+        const replacement = '<a rel="noopener noreferrer" ' + attrs + '>';
+        console.log('[addRelToLinks] Pattern 3 adding rel:', { original: match, replacement });
+        modified = true;
+        return replacement;
+      }
+    }
+    return match;
+  });
+
+  // Pattern 4: Check for href attribute without <a tag (malformed)
+  if (/href\s*=/i.test(result) && !/<a/.test(result)) {
+    console.warn('[addRelToLinks] Found href attribute without <a tag - malformed HTML detected');
   }
-  
+
+  if (modified) {
+    console.log('[addRelToLinks] HTML content was modified with security attributes');
+  } else {
+    console.log('[addRelToLinks] No anchor tags found - HTML content unchanged');
+  }
+
+  console.log('[addRelToLinks] Result:', result);
   return result;
 };
 
@@ -1467,6 +1508,7 @@ const measureName = fields.measures[0];
 
     }
     else{
+      console.log('[addRelToLinks] skipping html processing and using original value for key:', key);
       return row.original[key]?.rendered || row.original[key]?.value
     }
 
@@ -1518,6 +1560,7 @@ else{
 
     }
     else{
+      console.log('[addRelToLinks] skipping html processing and using original value for key:', key);
       return row.original[key]?.rendered || row.original[key]?.value
     }
 
